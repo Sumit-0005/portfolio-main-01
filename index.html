@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumit Kakani — Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg: #f7f8fc;
+  --bg2: #eef1f8;
+  --white: #ffffff;
+  --navy: #0a0f2e;
+  --blue: #2563eb;
+  --indigo: #4f46e5;
+  --violet: #7c3aed;
+  --sky: #0ea5e9;
+  --green: #10b981;
+  --grad: linear-gradient(135deg, #2563eb 0%, #4f46e5 55%, #7c3aed 100%);
+  --text: #0f172a;
+  --sub: #475569;
+  --muted: #94a3b8;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 40px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.06);
+  --r: 14px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3.5rem; height: 64px;
+  background: rgba(247,248,252,0.88);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-weight: 800; font-size: 1.05rem; letter-spacing: -0.03em;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-links { display: flex; gap: 0.15rem; list-style: none; }
+.nav-links a {
+  font-size: 0.82rem; font-weight: 500; color: var(--sub);
+  text-decoration: none; padding: 0.4rem 0.9rem; border-radius: 8px;
+  transition: all 0.18s;
+}
+.nav-links a:hover { color: var(--blue); background: var(--bg2); }
+.nav-cta {
+  font-size: 0.82rem; font-weight: 600;
+  padding: 0.5rem 1.3rem; border-radius: 10px;
+  background: var(--grad); color: #fff; text-decoration: none;
+  box-shadow: 0 2px 14px rgba(79,70,229,0.3);
+  transition: all 0.2s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 22px rgba(79,70,229,0.42); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 9rem 3.5rem 5rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 68% 20%, rgba(99,102,241,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 85% 72%, rgba(14,165,233,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 10% 80%, rgba(37,99,235,0.05) 0%, transparent 50%);
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 65% 65% at 78% 38%, black, transparent 80%);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 400px; gap: 4rem; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.73rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--blue); background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
+  padding: 0.38rem 0.95rem; border-radius: 100px; margin-bottom: 1.6rem;
+  opacity: 0; animation: up 0.6s 0.1s forwards;
+}
+.hero-badge .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 7px #22c55e;
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.hero-name {
+  font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+  font-weight: 800; letter-spacing: -0.045em; line-height: 1.04;
+  color: var(--navy); margin-bottom: 0.8rem;
+  opacity: 0; animation: up 0.6s 0.2s forwards;
+}
+.grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.hero-role {
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: 1.3rem; color: var(--sub); margin-bottom: 1.5rem;
+  opacity: 0; animation: up 0.6s 0.3s forwards;
+}
+.hero-desc {
+  font-size: 0.97rem; color: var(--sub); line-height: 1.8;
+  max-width: 510px; margin-bottom: 2.5rem;
+  opacity: 0; animation: up 0.6s 0.4s forwards;
+}
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: up 0.6s 0.5s forwards;
+}
+.btn-grad {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.82rem 1.8rem; border-radius: 12px;
+  background: var(--grad); color: #fff;
+  font-weight: 600; font-size: 0.9rem; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(79,70,229,0.34); transition: all 0.2s;
+}
+.btn-grad:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(79,70,229,0.44); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.82rem 1.8rem; border-radius: 12px;
+  background: var(--white); color: var(--navy);
+  font-weight: 600; font-size: 0.9rem; text-decoration: none;
+  border: 1.5px solid var(--border); box-shadow: var(--shadow); transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+/* hero stat panels */
+.hero-right {
+  display: flex; flex-direction: column; gap: 0.9rem;
+  opacity: 0; animation: fadeIn 0.8s 0.65s forwards;
+}
+.stat-panel {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.2rem 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 1rem;
+  transition: all 0.22s;
+}
+.stat-panel:hover { box-shadow: var(--shadow-lg); transform: translateX(5px); }
+.stat-ico {
+  width: 44px; height: 44px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; flex-shrink: 0;
+}
+.stat-val { font-size: 1.45rem; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; line-height: 1; }
+.stat-lbl { font-size: 0.76rem; color: var(--muted); margin-top: 0.18rem; font-weight: 500; }
+
+/* ─── SHARED SECTION STYLES ─── */
+.section { padding: 6rem 3.5rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.chip {
+  display: inline-flex; align-items: center;
+  font-size: 0.71rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--blue); background: rgba(37,99,235,0.07); border: 1px solid rgba(37,99,235,0.16);
+  padding: 0.28rem 0.82rem; border-radius: 100px; margin-bottom: 1rem;
+}
+.sh {
+  font-size: clamp(1.75rem, 3.5vw, 2.7rem); font-weight: 800;
+  letter-spacing: -0.04em; line-height: 1.1; color: var(--navy); margin-bottom: 0.7rem;
+}
+.ssub { font-size: 0.97rem; color: var(--sub); max-width: 530px; line-height: 1.75; }
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem;
+  align-items: start; margin-top: 3.5rem;
+}
+.about-body { font-size: 0.94rem; color: var(--sub); line-height: 1.9; }
+.about-body p { margin-bottom: 1rem; }
+.about-body strong { color: var(--navy); font-weight: 600; }
+
+.edu-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 1.4rem 1.6rem;
+  box-shadow: var(--shadow); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.edu-ico {
+  width: 44px; height: 44px; border-radius: 11px;
+  background: rgba(37,99,235,0.08);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+}
+.edu-name { font-size: 0.94rem; font-weight: 700; color: var(--navy); }
+.edu-detail { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+.edu-cgpa {
+  margin-left: auto; flex-shrink: 0;
+  font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.skills-wrap { display: flex; flex-direction: column; gap: 1.2rem; }
+.skills-cat-name {
+  font-size: 0.69rem; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
+}
+.skills-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.skill-tag {
+  font-size: 0.79rem; font-weight: 500;
+  padding: 0.32rem 0.82rem;
+  background: var(--white); color: var(--navy);
+  border: 1.5px solid var(--border); border-radius: 8px;
+  transition: all 0.18s; cursor: default;
+}
+.skill-tag:hover { border-color: var(--blue); color: var(--blue); background: rgba(37,99,235,0.04); }
+
+/* ─── ACHIEVEMENTS (dark) ─── */
+.ach-section { background: var(--navy); }
+.ach-section .chip { background: rgba(255,255,255,0.07); color: #a5b4fc; border-color: rgba(165,180,252,0.2); }
+.ach-section .sh { color: #f1f5f9; }
+.ach-section .ssub { color: #94a3b8; }
+
+.ach-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 3rem;
+}
+.ach-card {
+  background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r); padding: 1.8rem;
+  position: relative; overflow: hidden; transition: all 0.25s;
+}
+.ach-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad);
+}
+.ach-card:hover { background: rgba(255,255,255,0.065); transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.ach-emoji { font-size: 1.8rem; margin-bottom: 0.9rem; }
+.ach-rank { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 0.9rem; color: #a5b4fc; margin-bottom: 0.3rem; }
+.ach-name { font-size: 1.05rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.ach-desc { font-size: 0.8rem; color: #64748b; line-height: 1.65; }
+.ach-badge {
+  display: inline-block; margin-top: 0.9rem;
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: #a5b4fc; background: rgba(165,180,252,0.1);
+  border: 1px solid rgba(165,180,252,0.2); padding: 0.25rem 0.65rem; border-radius: 6px;
+}
+.ach-badge.gold { color: #fbbf24; background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.25); }
+.ach-badge.green { color: #34d399; background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.25); }
+
+.stats-strip {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: 3.5rem; padding-top: 3rem;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;
+}
+.strip-num {
+  font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.strip-lbl { font-size: 0.75rem; color: #64748b; font-weight: 500; margin-top: 0.2rem; }
+
+/* ─── PROJECTS ─── */
+.projects-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem;
+}
+.proj-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 2rem;
+  transition: all 0.22s; box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+}
+.proj-card:hover { border-color: rgba(37,99,235,0.3); box-shadow: 0 6px 32px rgba(37,99,235,0.11); transform: translateY(-3px); }
+.proj-card:hover .proj-arrow { background: var(--blue); color: #fff; }
+.proj-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.proj-ico { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.proj-arrow {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--bg2); display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; color: var(--muted); transition: all 0.2s;
+}
+.proj-links { display: flex; gap: 0.5rem; }
+.proj-link {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 0.25rem 0.6rem; border-radius: 6px;
+  background: var(--bg2); color: var(--sub); text-decoration: none;
+  border: 1px solid var(--border); transition: all 0.18s;
+}
+.proj-link:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.proj-title { font-size: 1.06rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.proj-desc { font-size: 0.83rem; color: var(--sub); line-height: 1.7; flex: 1; margin-bottom: 1.2rem; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ptag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em;
+  padding: 0.22rem 0.62rem; border-radius: 6px;
+  background: rgba(37,99,235,0.07); color: var(--blue);
+  border: 1px solid rgba(37,99,235,0.14);
+}
+
+/* ─── AGENCY ─── */
+.agency-section { background: var(--bg2); }
+.agency-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+  align-items: start; margin-top: 3.5rem;
+}
+.svc {
+  display: grid; grid-template-columns: 48px 1fr;
+  gap: 1.2rem; align-items: start;
+  padding: 1.4rem 0; border-bottom: 1px solid var(--border); transition: all 0.2s;
+}
+.svc:first-child { border-top: 1px solid var(--border); }
+.svc-ico {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--white); display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; box-shadow: var(--shadow); transition: all 0.2s; flex-shrink: 0;
+}
+.svc:hover .svc-ico { box-shadow: 0 4px 16px rgba(37,99,235,0.2); transform: scale(1.05); }
+.svc-name { font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 0.28rem; }
+.svc-desc { font-size: 0.82rem; color: var(--sub); line-height: 1.65; }
+
+.cta-box {
+  position: sticky; top: 88px;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+}
+.cta-chip { font-size: 0.69rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.85rem; }
+.cta-h { font-size: 1.5rem; font-weight: 800; color: var(--navy); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 0.7rem; }
+.cta-body { font-size: 0.86rem; color: var(--sub); line-height: 1.7; margin-bottom: 1.8rem; }
+.cta-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+.cta-item { display: flex; align-items: center; gap: 0.7rem; font-size: 0.84rem; color: var(--sub); }
+.cta-check {
+  width: 20px; height: 20px; border-radius: 6px;
+  background: rgba(37,99,235,0.1); color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800; flex-shrink: 0;
+}
+
+/* ─── CONTACT ─── */
+.contact-section { background: var(--navy); text-align: center; }
+.contact-section .chip { background: rgba(255,255,255,0.06); color: #a5b4fc; border-color: rgba(165,180,252,0.15); }
+.contact-section .sh { color: #f1f5f9; }
+.contact-section .ssub { color: #94a3b8; margin: 0 auto 3rem; }
+.contact-card {
+  max-width: 560px; margin: 0 auto;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r); padding: 2.8rem;
+}
+.contact-email {
+  font-size: clamp(0.95rem, 2.3vw, 1.3rem); font-weight: 700;
+  color: #f1f5f9; text-decoration: none; display: block;
+  margin-bottom: 0.5rem; transition: color 0.2s;
+}
+.contact-phone { font-size: 0.85rem; color: #64748b; margin-bottom: 2rem; }
+.contact-email:hover { color: #a5b4fc; }
+hr.div { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 1.5rem 0; }
+.socials { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+.soc-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.55rem 1.15rem; border-radius: 10px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: #cbd5e1; font-size: 0.81rem; font-weight: 500;
+  text-decoration: none; transition: all 0.2s;
+}
+.soc-btn:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #06091a; border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1.5rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-weight: 800; font-size: 0.95rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.footer-note { font-size: 0.73rem; color: #475569; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 940px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hero, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { flex-direction: row; flex-wrap: wrap; }
+  .stat-panel { flex: 1 1 160px; }
+  .about-grid, .agency-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .ach-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .stats-strip { grid-template-columns: repeat(2,1fr); }
+  .cta-box { position: static; }
+  footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+}
+.email-link {
+  text-decoration: none; 
+  transition: opacity 0.3s ease;
+}
+
+.email-link:hover {
+  opacity: 0.8;
+  text-decoration: underline; 
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Sumit Kakani</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#achievements">Wins</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#agency">Agency</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:sumitkakani0011@gmail.com" class="nav-cta">Hire Me →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="dot"></span>Open to Internships &amp; Freelance</div>
+      <h1 class="hero-name">Building real<br>products with<br><span class="grad-text">real impact.</span></h1>
+      <p class="hero-role">Sumit Kakani — Full-Stack Developer &amp; AI Enthusiast</p>
+      <p class="hero-desc">MERN Stack engineer from GEC Ajmer (CGPA 8.19) — building smart web apps, winning hackathons at IIT Roorkee &amp; BIT Mesra, and shipping AI-powered solutions with Gemini &amp; WebSockets.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-grad">View Projects →</a>
+        <a href="#agency" class="btn-outline">Hire Me!</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-panel">
+        <div class="stat-ico" style="background:rgba(251,191,36,0.12)">🏆</div>
+        <div><div class="stat-val">1st</div><div class="stat-lbl">CodeWars College Hackathon</div></div>
+      </div>
+      <div class="stat-panel">
+        <div class="stat-ico" style="background:rgba(79,70,229,0.1)">⚡</div>
+        <div><div class="stat-val">200+</div><div class="stat-lbl">LeetCode Problems</div></div>
+      </div>
+      <div class="stat-panel">
+        <div class="stat-ico" style="background:rgba(14,165,233,0.1)">🚀</div>
+        <div><div class="stat-val">8.19</div><div class="stat-lbl">CGPA — GEC Ajmer</div></div>
+      </div>
+      <div class="stat-panel">
+        <div class="stat-ico" style="background:rgba(16,185,129,0.1)">🌐</div>
+        <div><div class="stat-val">GSSoC</div><div class="stat-lbl">'25 Selected Contributor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="chip">About Me</div>
+    <h2 class="sh reveal">Engineer. Builder. Problem Solver.</h2>
+    <p class="ssub reveal">I turn complex problems into clean, scalable software — with competitive rigor and product thinking.</p>
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="edu-card">
+          <div class="edu-ico">🎓</div>
+          <div>
+            <div class="edu-name">B.Tech in Computer Science</div>
+            <div class="edu-detail">Govt. Engineering College, Ajmer · 2024–2028</div>
+          </div>
+          <div class="edu-cgpa">8.19</div>
+        </div>
+        <div class="about-body">
+          <p>I'm a <strong>2nd year CSE student</strong> at GEC Ajmer — deeply invested in full-stack web development, real-time systems, and AI-powered applications. I've shipped products like a <strong>Smart Attendance System</strong> used in my college and a finance assistant powered by the Gemini API.</p>
+          <p>My competitive edge: I've placed <strong>1st and 2nd at CodeWars</strong>, reached the <strong>Grand Finals at IIT Roorkee's Drone4S</strong>, won <strong>2nd Prize at BIT Mesra's TechX fest</strong>, and been selected as a <strong>GSSoC &amp; Hacktoberfest</strong> contributor.</p>
+          <p>I love building things that solve <strong>real, everyday problems</strong> — whether it's eliminating proxy attendance via dynamic QR codes or helping users understand their finances through AI insights.</p>
+        </div>
+      </div>
+      <div class="skills-wrap reveal">
+        <div>
+          <div class="skills-cat-name">Languages</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">C</span>
+          </div>
+        </div>
+        <div>
+          <div class="skills-cat-name">Web Development</div>
+          <div class="skills-tags">
+            <span class="skill-tag">React.js</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">HTML/CSS</span>
+          </div>
+        </div>
+        <div>
+          <div class="skills-cat-name">Concepts</div>
+          <div class="skills-tags">
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">WebSockets</span>
+            <span class="skill-tag">DSA</span>
+            <span class="skill-tag">OOP</span>
+            <span class="skill-tag">DBMS</span>
+            <span class="skill-tag">Caching</span>
+          </div>
+        </div>
+        <div>
+          <div class="skills-cat-name">AI &amp; Tools</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Gemini API</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">LLM</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="section ach-section" id="achievements">
+  <div class="section-inner">
+    <div class="chip">Achievements</div>
+    <h2 class="sh reveal">Competing. Winning. Repeating.</h2>
+    <p class="ssub reveal">From IIT Roorkee grand finals to college hackathon champion — I deliver under pressure.</p>
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <div class="ach-emoji">🥇</div>
+        <div class="ach-rank">1st Place · 2025</div>
+        <div class="ach-name">CodeWars College Hackathon</div>
+        <div class="ach-desc">Won first place in the CodeWars College Hackathon 2025, delivering a working solution against the best teams in the competition.</div>
+        <div class="ach-badge gold">Winner</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-emoji">🥈</div>
+        <div class="ach-rank">2nd Place · 2026</div>
+        <div class="ach-name">CodeWars College Hackathon</div>
+        <div class="ach-desc">Runner-up at the 2026 edition of CodeWars, proving consistent performance across back-to-back competitive seasons.</div>
+        <div class="ach-badge gold">Runner-Up</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-emoji">🚀</div>
+        <div class="ach-rank">Grand Finalist</div>
+        <div class="ach-name">Drone4S — IIT Roorkee</div>
+        <div class="ach-desc">Reached the Grand Finals at IIT Roorkee's prestigious Drone4S Hackathon — competing against top engineering talent from across India.</div>
+        <div class="ach-badge">Grand Finals · IIT Roorkee</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-emoji">🏅</div>
+        <div class="ach-rank">2nd Prize</div>
+        <div class="ach-name">TechX — BIT Mesra Tech Fest</div>
+        <div class="ach-desc">Secured 2nd Prize at TechX, the flagship tech fest of BIT Mesra — one of India's premier engineering institutions.</div>
+        <div class="ach-badge gold">2nd Prize · BIT Mesra</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-emoji">🌍</div>
+        <div class="ach-rank">Selected Contributor</div>
+        <div class="ach-name">GirlScript Summer of Code</div>
+        <div class="ach-desc">Selected as a contributor for GSSoC '25 — one of India's largest open-source programs with thousands of applicants.</div>
+        <div class="ach-badge green">GSSoC '25</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-emoji">⚡</div>
+        <div class="ach-rank">Grand Finalist</div>
+        <div class="ach-name">SGVU Jaipur Hackathon</div>
+        <div class="ach-desc">Reached the grand finals at the SGVU Jaipur 24-hour hackathon — a grueling overnight coding challenge demanding both speed and quality.</div>
+        <div class="ach-badge">24-Hour · Grand Finals</div>
+      </div>
+    </div>
+    <div class="stats-strip reveal">
+      <div><div class="strip-num">1st</div><div class="strip-lbl">CodeWars Winner 2025</div></div>
+      <div><div class="strip-num">4+</div><div class="strip-lbl">Hackathon Wins &amp; Finals</div></div>
+      <div><div class="strip-num">200+</div><div class="strip-lbl">LeetCode Problems Solved</div></div>
+      <div><div class="strip-num">8.19</div><div class="strip-lbl">CGPA — B.Tech CSE</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-inner">
+    <div class="chip">Projects</div>
+    <h2 class="sh reveal">Built with purpose, shipped with quality.</h2>
+    <p class="ssub reveal">Real products solving real problems — from college campuses to AI-powered finance tools.</p>
+    <div class="projects-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-head">
+          <div class="proj-ico" style="background:rgba(37,99,235,0.1)">📋</div>
+          <div class="proj-links">
+            <a href="https://github.com/prajapatvishnu7976-sys/Smart-attendance-app" class="proj-link">GitHub</a>
+            <a href="https://smartattendanceapp-13515.web.app/" class="proj-link">Live</a>
+          </div>
+        </div>
+        <div class="proj-title">Smart Attendance System</div>
+        <div class="proj-desc">Built for a professor to digitise attendance tracking at college. Features manual entry, OCR-based scanning, and a dynamic QR code system that regenerates in real-time — preventing proxy attendance.</div>
+        <div class="proj-tags">
+          <span class="ptag">Full Stack</span><span class="ptag">Node.js</span><span class="ptag">MongoDB</span><span class="ptag">QR Code</span><span class="ptag">OCR</span><span class="ptag">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-head">
+          <div class="proj-ico" style="background:rgba(14,165,233,0.1)">💬</div>
+          <div class="proj-links">
+            <a href="https://github.com/prajapatvishnu7976-sys/chat-project" class="proj-link">GitHub</a>
+            <a href="https://chat-project-three-rho.vercel.app/" class="proj-link">Live</a>
+          </div>
+        </div>
+        <div class="proj-title">Real-Time Chat Application</div>
+        <div class="proj-desc">A low-latency chat app built on WebSockets with bidirectional communication and a backend engineered to handle multiple concurrent users efficiently. Deep dive into event-driven architecture.</div>
+        <div class="proj-tags">
+          <span class="ptag">WebSockets</span><span class="ptag">Node.js</span><span class="ptag">Real-Time</span><span class="ptag">Event-Driven</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-head">
+          <div class="proj-ico" style="background:rgba(16,185,129,0.1)">💰</div>
+          <div class="proj-links">
+            <a href="https://github.com/Sumit-0005/finsarthi/tree/main" class="proj-link">GitHub</a>
+            <a href="https://finsarthi-frontend-lrf2-fge06pxsr.vercel.app/login" class="proj-link">Live</a>
+          </div>
+        </div>
+        <div class="proj-title">FinSarthi — AI Finance Assistant</div>
+        <div class="proj-desc">MERN + Gemini API app that tracks personal finances, calculates a financial health score, and delivers personalised AI-driven insights. Real-time recommendations powered by Google's Gemini.</div>
+        <div class="proj-tags">
+          <span class="ptag">MERN</span><span class="ptag">Gemini API</span><span class="ptag">AI</span><span class="ptag">MongoDB</span><span class="ptag">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-head">
+          <div class="proj-ico" style="background:rgba(124,58,237,0.1)">🤖</div>
+          <div class="proj-links">
+            <a href="https://github.com/prajapatvishnu7976-sys/AI-OPS-ASSISTANT" class="proj-link">GitHub</a>
+            <a href="https://ai-ops-assistant-cyan.vercel.app/" class="proj-link">Live</a>
+          </div>
+        </div>
+        <div class="proj-title">AI-Based Utility Assistant</div>
+        <div class="proj-desc">Integrates Gemini, GitHub API, and a weather API to fetch real-time temperature data and recommend relevant GitHub repos using AI. Caching implemented to optimise performance and cut redundant API calls.</div>
+        <div class="proj-tags">
+          <span class="ptag">Gemini</span><span class="ptag">FastAPI</span><span class="ptag">GitHub API</span><span class="ptag">Caching</span><span class="ptag">Python</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AGENCY -->
+<section class="section agency-section" id="agency">
+  <div class="section-inner">
+    <div class="chip">Agency</div>
+    <h2 class="sh reveal">I build digital products for ambitious clients.</h2>
+    <p class="ssub reveal">From MVPs to full platforms — delivered with the speed and quality of a competitive engineer.</p>
+    <div class="agency-inner">
+      <div class="reveal">
+        <div class="svc">
+          <div class="svc-ico">💻</div>
+          <div><div class="svc-name">Full-Stack Web Development</div><div class="svc-desc">MERN applications from database schema to pixel-perfect UI — scalable, clean, and production-ready from day one.</div></div>
+        </div>
+        <div class="svc">
+          <div class="svc-ico">🤖</div>
+          <div><div class="svc-name">AI-Powered Applications</div><div class="svc-desc">Integrate LLMs and Gemini API into your product. Chatbots, intelligent assistants, automated insights — built and deployed.</div></div>
+        </div>
+        <div class="svc">
+          <div class="svc-ico">⚡</div>
+          <div><div class="svc-name">Real-Time Systems</div><div class="svc-desc">WebSocket-based live features — chats, dashboards, notifications. Low latency, multi-user, built for scale.</div></div>
+        </div>
+        <div class="svc">
+          <div class="svc-ico">⚙️</div>
+          <div><div class="svc-name">API &amp; Backend Engineering</div><div class="svc-desc">REST APIs, authentication flows, caching strategies, and backend architecture that handles real-world production traffic.</div></div>
+        </div>
+      </div>
+      <div class="cta-box reveal">
+        <div class="cta-chip">Start a Project</div>
+        <div class="cta-h">Let's build something great together.</div>
+        <div class="cta-body">Whether you're a startup launching an MVP or a business that needs a smarter web app, I bring hackathon energy and production discipline to every project.</div>
+        <div class="cta-list">
+          <div class="cta-item"><div class="cta-check">✓</div>Fast turnaround &amp; clear communication</div>
+          <div class="cta-item"><div class="cta-check">✓</div>Clean, maintainable, documented code</div>
+          <div class="cta-item"><div class="cta-check">✓</div>Full-stack or backend-only engagement</div>
+          <div class="cta-item"><div class="cta-check">✓</div>Post-delivery support included</div>
+        </div>
+        <a href="gmail:sumitkakani0011@gmail.com" class="btn-grad" style="width:100%;justify-content:center;display:flex">Get in Touch →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="section-inner">
+    <div class="chip">Contact</div>
+    <h2 class="sh reveal">Let's work together.</h2>
+    <p class="ssub reveal">Open to internships, full-time roles, freelance projects, and exciting collaborations.</p>
+    <div class="contact-card reveal">
+      <a href="mailto:sumitkakani0011@gmail.com" class="email-link">sumitkakani0011@gmail.com</a>
+      <div class="contact-phone">+91 87649 33227</div>
+      <hr class="div">
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/kakanisumit" target="_blank" class="soc-btn">🔗 LinkedIn</a>
+        <a href="https://github.com/Sumit-0005" target="_blank" class="soc-btn">⌥ GitHub</a>
+        <a href="https://leetcode.com/u/hnadbS0YYo/" target="_blank" class="soc-btn">⚡ LeetCode</a>
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+<footer>
+  <div class="footer-logo">Sumit Kakani</div>
+  <div class="footer-note">© 2026 · GEC Ajmer · MERN · AI · 4× Hackathon Winner &amp; Finalist</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const siblings = [...entry.target.parentNode.children].filter(c => c.classList.contains('reveal'));
+    const idx = siblings.indexOf(entry.target);
+    setTimeout(() => entry.target.classList.add('in'), idx * 100);
+    obs.unobserve(entry.target);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let curr = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 120) curr = s.id; });
+  links.forEach(a => {
+    const on = a.getAttribute('href') === '#' + curr;
+    a.style.color = on ? 'var(--blue)' : '';
+    a.style.background = on ? 'var(--bg2)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
